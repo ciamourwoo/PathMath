@@ -22,3 +22,18 @@ if submit_button:
     st.session_state["nama"] = nama
     st.session_state["kelas"] = kelas
     st.session_state["materi"] = materi
+
+import streamlit as st
+
+# Pastikan session_state.kelas sudah ada, jika belum inisialisasi dengan None atau nilai default
+if 'kelas' not in st.session_state:
+    st.session_state.kelas = None  # Inisialisasi dengan nilai default (misalnya None)
+
+# Pilihan kelas
+kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+
+# Simpan pilihan kelas ke session_state.kelas
+st.session_state.kelas = kelas
+
+# Tampilkan pilihan kelas yang dipilih
+st.write(f"Kelas yang dipilih: {st.session_state.kelas}")
