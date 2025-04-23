@@ -23,9 +23,15 @@ if submit_button:
     st.session_state["kelas"] = kelas
     st.session_state["materi"] = materi
 
-import streamlit as st
 
-# Soal berdasarkan kelas
+# Cek jika st.session_state.kelas belum ada, beri nilai default
+if 'kelas' not in st.session_state:
+    st.session_state.kelas = "4"  # Set default kelas jika belum ada
+
+# Input untuk memilih kelas
+st.session_state.kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+
+# Sekarang soal bisa diakses sesuai kelas yang dipilih
 soal_kelas = {
     "4": [
         {"soal": "Berapakah 6 + 3?", "opsi": ["7", "8", "9", "10"], "jawaban": "9"},
@@ -41,33 +47,29 @@ soal_kelas = {
     ]
 }
 
-# Sesuaikan soal dengan kelas
+# Ambil soal sesuai kelas yang dipilih
 soal_list = soal_kelas.get(st.session_state.kelas, [])
 
+# Menampilkan soal
 if 'nomor_soal' not in st.session_state:
     st.session_state.nomor_soal = 1
 
-if 'nama' in st.session_state:
-    total_soal = len(soal_list)
-    current = st.session_state.nomor_soal - 1
+current = st.session_state.nomor_soal - 1
+st.subheader(f"Soal {st.session_state.nomor_soal}")
+st.write(soal_list[current]["soal"])
+pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
 
-    # Menampilkan soal sesuai kelas
-    st.subheader(f"Soal {st.session_state.nomor_soal} dari {total_soal}")
-    st.write(soal_list[current]["soal"])
-    pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
+if st.button("Submit Jawaban"):
+    benar = pilihan == soal_list[current]["jawaban"]
+    if benar:
+        st.success("Jawaban benar! 🎉")
+    else:
+        st.error("Jawaban salah 😬")
 
-    if st.button("Submit Jawaban"):
-        benar = pilihan == soal_list[current]["jawaban"]
-        if benar:
-            st.success("Jawaban benar! 🎉")
-        else:
-            st.error("Jawaban salah 😬")
-
-        if st.session_state.nomor_soal < total_soal:
-            st.session_state.nomor_soal += 1
-            st.experimental_rerun()
-        else:
-            st.balloons()
-            st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
-
+    if st.session_state.nomor_soal < len(soal_list):
+        st.session_state.nomor_soal += 1
+        st.experimental_rerun()
+    else:
+        st.balloons()
+        st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
 
