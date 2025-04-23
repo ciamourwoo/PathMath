@@ -23,14 +23,15 @@ if submit_button:
     st.session_state["kelas"] = kelas
     st.session_state["materi"] = materi
 
-import streamlit as st
-
-# Inisialisasi 'kelas' jika belum ada
+# Inisialisasi 'kelas' di session_state jika belum ada
 if 'kelas' not in st.session_state:
-    st.session_state.kelas = None  # Atur kelas default ke None atau kelas yang kamu pilih
+    st.session_state.kelas = None  # Atur kelas default ke None atau kelas yang dipilih
 
 # Input untuk memilih kelas
-st.session_state.kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+
+# Simpan pilihan kelas di session_state
+st.session_state.kelas = kelas
 
 # Tentukan soal untuk setiap kelas
 soal_kelas = {
@@ -77,3 +78,4 @@ if soal_list:
         else:
             st.balloons()
             st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
+
