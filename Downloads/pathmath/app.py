@@ -29,11 +29,31 @@ import streamlit as st
 if 'kelas' not in st.session_state:
     st.session_state.kelas = None  # Inisialisasi dengan nilai default (misalnya None)
 
-# Pilihan kelas
-kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+# Tentukan soal untuk setiap kelas
+soal_kelas = {
+    "4": [
+        {"soal": "Berapakah 6 + 3?", "opsi": ["7", "8", "9", "10"], "jawaban": "9"},
+        {"soal": "Berapakah 5 - 2?", "opsi": ["1", "2", "3", "4"], "jawaban": "3"}
+    ],
+    "5": [
+        {"soal": "Berapakah 12 ÷ 3?", "opsi": ["2", "3", "4", "6"], "jawaban": "4"},
+        {"soal": "Berapakah 7 × 6?", "opsi": ["42", "49", "56", "63"], "jawaban": "42"}
+    ],
+    "6": [
+        {"soal": "Berapakah 5/8 + 3/8?", "opsi": ["3/8", "4/8", "8/8", "1"], "jawaban": "1"},
+        {"soal": "Berapakah 15 ÷ 5 × 3?", "opsi": ["6", "9", "12", "15"], "jawaban": "9"}
+    ]
+}
 
-# Simpan pilihan kelas ke session_state.kelas
-st.session_state.kelas = kelas
+# Pastikan st.session_state.kelas ada sebelum mencari soal
+if st.session_state.kelas:
+    soal_list = soal_kelas.get(st.session_state.kelas, [])
+else:
+    st.error("Pilih kelas terlebih dahulu!")
 
-# Tampilkan pilihan kelas yang dipilih
-st.write(f"Kelas yang dipilih: {st.session_state.kelas}")
+# Tampilkan soal sesuai kelas yang dipilih
+if soal_list:
+    st.write(f"Menampilkan soal untuk kelas {st.session_state.kelas}")
+    for soal in soal_list:
+        st.write(soal["soal"])
+
