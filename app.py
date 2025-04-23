@@ -23,15 +23,16 @@ if submit_button:
     st.session_state["kelas"] = kelas
     st.session_state["materi"] = materi
 
+import streamlit as st
 
-# Cek jika st.session_state.kelas belum ada, beri nilai default
+# Inisialisasi 'kelas' jika belum ada
 if 'kelas' not in st.session_state:
-    st.session_state.kelas = "4"  # Set default kelas jika belum ada
+    st.session_state.kelas = None  # Atur kelas default ke None atau kelas yang kamu pilih
 
 # Input untuk memilih kelas
 st.session_state.kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
 
-# Sekarang soal bisa diakses sesuai kelas yang dipilih
+# Tentukan soal untuk setiap kelas
 soal_kelas = {
     "4": [
         {"soal": "Berapakah 6 + 3?", "opsi": ["7", "8", "9", "10"], "jawaban": "9"},
@@ -47,29 +48,32 @@ soal_kelas = {
     ]
 }
 
-# Ambil soal sesuai kelas yang dipilih
-soal_list = soal_kelas.get(st.session_state.kelas, [])
+# Pastikan st.session_state.kelas ada sebelum mencari soal
+if st.session_state.kelas:
+    soal_list = soal_kelas.get(st.session_state.kelas, [])
+else:
+    st.error("Pilih kelas terlebih dahulu!")
 
-# Menampilkan soal
-if 'nomor_soal' not in st.session_state:
-    st.session_state.nomor_soal = 1
+# Menampilkan soal jika ada
+if soal_list:
+    if 'nomor_soal' not in st.session_state:
+        st.session_state.nomor_soal = 1
 
-current = st.session_state.nomor_soal - 1
-st.subheader(f"Soal {st.session_state.nomor_soal}")
-st.write(soal_list[current]["soal"])
-pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
+    current = st.session_state.nomor_soal - 1
+    st.subheader(f"Soal {st.session_state.nomor_soal}")
+    st.write(soal_list[current]["soal"])
+    pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
 
-if st.button("Submit Jawaban"):
-    benar = pilihan == soal_list[current]["jawaban"]
-    if benar:
-        st.success("Jawaban benar! 🎉")
-    else:
-        st.error("Jawaban salah 😬")
+    if st.button("Submit Jawaban"):
+        benar = pilihan == soal_list[current]["jawaban"]
+        if benar:
+            st.success("Jawaban benar! 🎉")
+        else:
+            st.error("Jawaban salah 😬")
 
-    if st.session_state.nomor_soal < len(soal_list):
-        st.session_state.nomor_soal += 1
-        st.experimental_rerun()
-    else:
-        st.balloons()
-        st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
-
+        if st.session_state.nomor_soal < len(soal_list):
+            st.session_state.nomor_soal += 1
+            st.experimental_rerun()
+        else:
+            st.balloons()
+            st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
