@@ -23,3 +23,51 @@ if submit_button:
     st.session_state["kelas"] = kelas
     st.session_state["materi"] = materi
 
+import streamlit as st
+
+# Soal berdasarkan kelas
+soal_kelas = {
+    "4": [
+        {"soal": "Berapakah 6 + 3?", "opsi": ["7", "8", "9", "10"], "jawaban": "9"},
+        {"soal": "Berapakah 5 - 2?", "opsi": ["1", "2", "3", "4"], "jawaban": "3"}
+    ],
+    "5": [
+        {"soal": "Berapakah 12 ÷ 3?", "opsi": ["2", "3", "4", "6"], "jawaban": "4"},
+        {"soal": "Berapakah 7 × 6?", "opsi": ["42", "49", "56", "63"], "jawaban": "42"}
+    ],
+    "6": [
+        {"soal": "Berapakah 5/8 + 3/8?", "opsi": ["3/8", "4/8", "8/8", "1"], "jawaban": "1"},
+        {"soal": "Berapakah 15 ÷ 5 × 3?", "opsi": ["6", "9", "12", "15"], "jawaban": "9"}
+    ]
+}
+
+# Sesuaikan soal dengan kelas
+soal_list = soal_kelas.get(st.session_state.kelas, [])
+
+if 'nomor_soal' not in st.session_state:
+    st.session_state.nomor_soal = 1
+
+if 'nama' in st.session_state:
+    total_soal = len(soal_list)
+    current = st.session_state.nomor_soal - 1
+
+    # Menampilkan soal sesuai kelas
+    st.subheader(f"Soal {st.session_state.nomor_soal} dari {total_soal}")
+    st.write(soal_list[current]["soal"])
+    pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
+
+    if st.button("Submit Jawaban"):
+        benar = pilihan == soal_list[current]["jawaban"]
+        if benar:
+            st.success("Jawaban benar! 🎉")
+        else:
+            st.error("Jawaban salah 😬")
+
+        if st.session_state.nomor_soal < total_soal:
+            st.session_state.nomor_soal += 1
+            st.experimental_rerun()
+        else:
+            st.balloons()
+            st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
+
+
