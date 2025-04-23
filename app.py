@@ -78,4 +78,3 @@ if soal_list:
         else:
             st.balloons()
             st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
-
