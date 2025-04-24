@@ -25,40 +25,44 @@ if st.session_state["halaman"] == "identitas":
         st.session_state.nama = st.text_input("Nama Lengkap", key="nama")
         st.session_state.materi = st.selectbox("Materi yang akan dikerjakan", ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"], key="materi")
 
-        submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal):
-        pass
+        submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal)
 
+    # Jika tombol diklik
+    if submit_button:
+        if st.session_state.nama and st.session_state.materi:
+            st.session_state["halaman"] = "soal"
+            st.success(f"Halo {st.session_state.nama}, selamat mengerjakan materi {st.session_state.materi}!")
+        else:
+            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
 # Halaman soal sesuai materi (halaman kedua)
 elif st.session_state["halaman"] == "soal":
     st.title(f"Materi: {st.session_state.materi}")
     st.write(f"Halo {st.session_state.nama}, selamat mengerjakan!")
-     else:
-            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
     # Tentukan soal untuk setiap materi
-    soal_materi = {
-        "Pecahan": [
-            {"soal": "Sederhanakan: 6/8", "jawaban": "3/4"},
-            {"soal": "Sederhanakan: 12/16", "jawaban": "3/4"}
-        ],
-        "Pola Bilangan": [
-            {"soal": "Angka ke-5 dari pola: 2, 4, 6, ...", "jawaban": "10"},
-            {"soal": "Angka ke-7 dari pola: 1, 4, 7, ...", "jawaban": "22"}
-        ],
-        "KPK dan FPB": [
-            {"soal": "Tentukan KPK dari 6 dan 8", "jawaban": "24"},
-            {"soal": "Tentukan FPB dari 12 dan 18", "jawaban": "6"}
-        ],
-        "Luas dan Volume": [
-            {"soal": "Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "jawaban": "15 cm²"},
-            {"soal": "Volume balok dengan panjang 4 cm, lebar 3 cm, dan tinggi 6 cm?", "jawaban": "72 cm³"}
-        ],
-        "Bangun Datar": [
-            {"soal": "Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "jawaban": "12 cm"},
-            {"soal": "Luas lingkaran dengan jari-jari 7 cm?", "jawaban": "154 cm²"}
-        ]
-    }
+    materi = st.session_state.materi
+        if materi == "Pecahan": 
+            st.subheader("1. Pecahan")
+        st.write("Sederhanakan: 6/8")
+        st.text_input("Jawaban:3/4")
+        elif materi == "Pola Bilangan": 
+            st.subheader("1. Pola Bilangan")
+        st.write("Angka ke-5 dari pola: 2, 4, 6, ...")
+        st.text_input("Jawaban:8")
+        elif materi == "KPK dan FPB": 
+            st.subheader("KPK dan FPB")
+        st.write("Tentukan KPK dari 6 dan 8")
+        st.text_input("Jawaban:24")
+        elif materi == "Luas dan Volume": 
+            st.subheader("Luas dan Volume")
+        st.write("Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?")
+        st.text_input("Jawaban:15")
+        elif materi == "Bangun Datar": 
+            st.subheader("Bangun Datar")
+        st.write("Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?")
+        st.text_input("Jawaban:12")
+         
 
     # Pilih soal berdasarkan materi yang dipilih
     materi = st.session_state.materi
