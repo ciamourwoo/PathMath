@@ -23,7 +23,6 @@ if st.session_state["halaman"] == "identitas":
             st.session_state["nama"] = nama
             st.session_state["materi"] = materi
             st.session_state["halaman"] = "soal"
-            st.experimental_rerun()
         else:
             st.warning("Harap lengkapi semua data terlebih dahulu!")
 
