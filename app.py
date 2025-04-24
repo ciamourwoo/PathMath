@@ -63,6 +63,4 @@ elif st.session_state["halaman"] == "soal":
         # Logika untuk memeriksa jawaban bisa ditambahkan di sini
         st.success("Jawaban telah dikirim!")  # Contoh umpan balik
 
-    # Opsi untuk soal berikutnya
-    if st.button("Soal Berikutnya"):
-        st.experimental_rerun()  # Memuat ulang halaman untuk soal baru
+   
