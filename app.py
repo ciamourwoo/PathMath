@@ -3,32 +3,31 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="PathMath", layout="centered")
 
-# Inisialisasi session_state
+# Inisialisasi state halaman
 if "halaman" not in st.session_state:
     st.session_state["halaman"] = "identitas"
 
-# Halaman Identitas
+# Halaman IDENTITAS
 if st.session_state["halaman"] == "identitas":
     st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
     st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
 
     with st.form("form_identitas"):
-        st.text_input("Nama Lengkap", key="nama")
-        st.selectbox(
-            "Materi yang akan dikerjakan",
-            ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"],
-            key="materi"
-        )
-        submit_button = st.form_submit_button("Mulai Mengerjakan")
+        nama = st.text_input("Nama Lengkap")
+        materi = st.selectbox("Materi yang akan dikerjakan", 
+            ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
+        submit = st.form_submit_button("Mulai Mengerjakan")
 
-    if submit_button:
-        if st.session_state["nama"] and st.session_state["materi"]:
+    if submit:
+        if nama.strip() != "" and materi != "":
+            st.session_state["nama"] = nama
+            st.session_state["materi"] = materi
             st.session_state["halaman"] = "soal"
-            st.experimental_rerun()  # 🔥 ini penting untuk berpindah halaman
+            st.experimental_rerun()
         else:
-            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
+            st.warning("Harap lengkapi semua data terlebih dahulu!")
 
-# Halaman Soal
+# Halaman SOAL
 elif st.session_state["halaman"] == "soal":
     st.title(f"Materi: {st.session_state['materi']}")
     st.write(f"Halo {st.session_state['nama']}, selamat mengerjakan!")
