@@ -3,16 +3,9 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="PathMath", layout="centered")
 
-# Inisialisasi halaman
+# Inisialisasi session_state
 if "halaman" not in st.session_state:
     st.session_state["halaman"] = "identitas"
-
-# Fungsi pindah ke halaman soal
-def mulai_soal():
-    if st.session_state.get("nama") and st.session_state.get("materi"):
-        st.session_state["halaman"] = "soal"
-    else:
-        st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
 # Halaman Identitas
 if st.session_state["halaman"] == "identitas":
@@ -21,11 +14,19 @@ if st.session_state["halaman"] == "identitas":
 
     with st.form("form_identitas"):
         st.text_input("Nama Lengkap", key="nama")
-        st.selectbox("Materi yang akan dikerjakan", ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"], key="materi")
+        st.selectbox(
+            "Materi yang akan dikerjakan",
+            ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"],
+            key="materi"
+        )
         submit_button = st.form_submit_button("Mulai Mengerjakan")
 
-        if submit_button:
-            mulai_soal()
+    if submit_button:
+        if st.session_state["nama"] and st.session_state["materi"]:
+            st.session_state["halaman"] = "soal"
+            st.experimental_rerun()  # 🔥 ini penting untuk berpindah halaman
+        else:
+            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
 # Halaman Soal
 elif st.session_state["halaman"] == "soal":
