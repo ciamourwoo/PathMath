@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Konfigurasi halaman
-st.set_page_config(page_title="PathMath", layout="centered")
+st.set_page_config(page_title="MathPath", layout="centered")
 
 # Inisialisasi halaman saat pertama kali
 if "halaman" not in st.session_state:
