@@ -3,78 +3,91 @@ import streamlit as st
 # Konfigurasi halaman
 st.set_page_config(page_title="PathMath", layout="centered")
 
-# Isi halaman aplikasi
-st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
-st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
+# Inisialisasi halaman saat pertama kali
+if "halaman" not in st.session_state:
+    st.session_state["halaman"] = "identitas"
 
-# Form input identitas siswa
-with st.form("form_identitas"):
-    nama = st.text_input("Nama Lengkap")
-    kelas = st.selectbox("Kelas", ["4", "5", "6"])
-    materi = st.selectbox("Materi yang akan dikerjakan", ["Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
-    
-    submit_button = st.form_submit_button("Mulai Mengerjakan")
+# Fungsi pindah ke halaman soal
+def mulai_soal():
+    # Validasi inputan (jika ada yang kosong)
+    if st.session_state.nama and st.session_state.materi:
+        st.session_state["halaman"] = "soal"
+    else:
+        st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
-# Jika tombol diklik
-if submit_button:
-    st.success(f"Halo {nama} dari kelas {kelas}, selamat mengerjakan materi {materi}!")
-    # Simpan data identitas siswa ke session (opsional)
-    st.session_state["nama"] = nama
-    st.session_state["kelas"] = kelas
-    st.session_state["materi"] = materi
+# Halaman identitas (halaman pertama)
+if st.session_state["halaman"] == "identitas":
+    st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
+    st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
 
-# Inisialisasi 'kelas' di session_state jika belum ada
-if 'kelas' not in st.session_state:
-    st.session_state.kelas = None  # Atur kelas default ke None atau kelas yang dipilih
+    with st.form("form_identitas"):
+        # Form input identitas siswa
+        st.session_state.nama = st.text_input("Nama Lengkap", key="nama")
+        st.session_state.materi = st.selectbox("Materi yang akan dikerjakan", ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"], key="materi")
 
-# Input untuk memilih kelas
-kelas = st.selectbox("Pilih Kelas", ["4", "5", "6"])
+        submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal)
 
-# Simpan pilihan kelas di session_state
-st.session_state.kelas = kelas
-
-# Tentukan soal untuk setiap kelas
-soal_kelas = {
-    "4": [
-        {"soal": "Berapakah 6 + 3?", "opsi": ["7", "8", "9", "10"], "jawaban": "9"},
-        {"soal": "Berapakah 5 - 2?", "opsi": ["1", "2", "3", "4"], "jawaban": "3"}
-    ],
-    "5": [
-        {"soal": "Berapakah 12 ÷ 3?", "opsi": ["2", "3", "4", "6"], "jawaban": "4"},
-        {"soal": "Berapakah 7 × 6?", "opsi": ["42", "49", "56", "63"], "jawaban": "42"}
-    ],
-    "6": [
-        {"soal": "Berapakah 5/8 + 3/8?", "opsi": ["3/8", "4/8", "8/8", "1"], "jawaban": "1"},
-        {"soal": "Berapakah 15 ÷ 5 × 3?", "opsi": ["6", "9", "12", "15"], "jawaban": "9"}
-    ]
-}
-
-# Pastikan st.session_state.kelas ada sebelum mencari soal
-if st.session_state.kelas:
-    soal_list = soal_kelas.get(st.session_state.kelas, [])
-else:
-    st.error("Pilih kelas terlebih dahulu!")
-
-# Menampilkan soal jika ada
-if soal_list:
-    if 'nomor_soal' not in st.session_state:
-        st.session_state.nomor_soal = 1
-
-    current = st.session_state.nomor_soal - 1
-    st.subheader(f"Soal {st.session_state.nomor_soal}")
-    st.write(soal_list[current]["soal"])
-    pilihan = st.radio("Pilih jawaban:", soal_list[current]["opsi"], key=current)
-
-    if st.button("Submit Jawaban"):
-        benar = pilihan == soal_list[current]["jawaban"]
-        if benar:
-            st.success("Jawaban benar! 🎉")
+    # Jika tombol diklik
+    if submit_button:
+        if st.session_state.nama and st.session_state.materi:
+            st.session_state["halaman"] = "soal"
+            st.success(f"Halo {st.session_state.nama}, selamat mengerjakan materi {st.session_state.materi}!")
         else:
-            st.error("Jawaban salah 😬")
+            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
 
-        if st.session_state.nomor_soal < len(soal_list):
-            st.session_state.nomor_soal += 1
-            st.experimental_rerun()
-        else:
-            st.balloons()
-            st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
+# Halaman soal sesuai materi (halaman kedua)
+elif st.session_state["halaman"] == "soal":
+    st.title(f"Materi: {st.session_state.materi}")
+    st.write(f"Halo {st.session_state.nama}, selamat mengerjakan!")
+
+    # Tentukan soal untuk setiap materi
+    soal_materi = {
+        "Pecahan": [
+            {"soal": "Sederhanakan: 6/8", "jawaban": "3/4"},
+            {"soal": "Sederhanakan: 12/16", "jawaban": "3/4"}
+        ],
+        "Pola Bilangan": [
+            {"soal": "Angka ke-5 dari pola: 2, 4, 6, ...", "jawaban": "10"},
+            {"soal": "Angka ke-7 dari pola: 1, 4, 7, ...", "jawaban": "22"}
+        ],
+        "KPK dan FPB": [
+            {"soal": "Tentukan KPK dari 6 dan 8", "jawaban": "24"},
+            {"soal": "Tentukan FPB dari 12 dan 18", "jawaban": "6"}
+        ],
+        "Luas dan Volume": [
+            {"soal": "Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "jawaban": "15 cm²"},
+            {"soal": "Volume balok dengan panjang 4 cm, lebar 3 cm, dan tinggi 6 cm?", "jawaban": "72 cm³"}
+        ],
+        "Bangun Datar": [
+            {"soal": "Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "jawaban": "12 cm"},
+            {"soal": "Luas lingkaran dengan jari-jari 7 cm?", "jawaban": "154 cm²"}
+        ]
+    }
+
+    # Pilih soal berdasarkan materi yang dipilih
+    materi = st.session_state.materi
+    soal_list = soal_materi.get(materi, [])
+
+    # Menampilkan soal jika ada
+    if soal_list:
+        if 'nomor_soal' not in st.session_state:
+            st.session_state.nomor_soal = 1
+
+        current = st.session_state.nomor_soal - 1
+        st.subheader(f"Soal {st.session_state.nomor_soal}")
+        st.write(soal_list[current]["soal"])
+        pilihan = st.text_input("Jawaban:", key=current)
+
+        if st.button("Submit Jawaban"):
+            benar = pilihan == soal_list[current]["jawaban"]
+            if benar:
+                st.success("Jawaban benar! 🎉")
+            else:
+                st.error("Jawaban salah 😬")
+
+            if st.session_state.nomor_soal < len(soal_list):
+                st.session_state.nomor_soal += 1
+                st.experimental_rerun()
+            else:
+                st.balloons()
+                st.markdown("### Selesai! Terima kasih sudah mengerjakan 😄")
