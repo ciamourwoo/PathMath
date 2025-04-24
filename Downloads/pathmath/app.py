@@ -13,25 +13,6 @@ if "nomor_soal" not in st.session_state:
 if "skor" not in st.session_state:
     st.session_state["skor"] = 0
 
-# ===== Halaman IDENTITAS =====
-if st.session_state["halaman"] == "identitas":
-    st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
-    st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
-
-    with st.form("form_identitas"):
-        nama = st.text_input("Nama Lengkap")
-        materi = st.selectbox("Materi yang akan dikerjakan", 
-            ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
-        submit = st.form_submit_button("Mulai Mengerjakan")
-
-    if submit:
-        if nama.strip() != "" and materi != "":
-            st.session_state["nama"] = nama
-            st.session_state["materi"] = materi
-            st.session_state["halaman"] = "soal"
-        else:
-            st.warning("Harap lengkapi semua data terlebih dahulu!")
-
 # ===== Data Soal Berdasarkan Level =====
 soal_bank = {
     "Pecahan": {
@@ -61,8 +42,27 @@ soal_bank = {
     }
 }
 
+# ===== Halaman IDENTITAS =====
+if st.session_state["halaman"] == "identitas":
+    st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
+    st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
+
+    with st.form("form_identitas"):
+        nama = st.text_input("Nama Lengkap")
+        materi = st.selectbox("Materi yang akan dikerjakan", 
+            ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
+        submit = st.form_submit_button("Mulai Mengerjakan")
+
+    if submit:
+        if nama.strip() != "" and materi != "":
+            st.session_state["nama"] = nama
+            st.session_state["materi"] = materi
+            st.session_state["halaman"] = "soal"
+        else:
+            st.warning("Harap lengkapi semua data terlebih dahulu!")
+
 # ===== Halaman SOAL =====
-elif st.session_state["halaman"] == "soal":
+if st.session_state["halaman"] == "soal":
     st.title(f"Materi: {st.session_state['materi']} | Level: {st.session_state['level']}")
     st.write(f"Halo {st.session_state['nama']}, selamat mengerjakan!")
 
