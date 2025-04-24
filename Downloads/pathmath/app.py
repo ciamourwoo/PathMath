@@ -10,13 +10,15 @@ st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepa
 # Form input identitas siswa
 with st.form("form_identitas"):
     nama = st.text_input("Nama Lengkap")
-    materi = st.selectbox("Materi yang akan dikerjakan", ["Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
+    materi = st.selectbox("Materi yang akan dikerjakan", ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"])
     
     submit_button = st.form_submit_button("Mulai Mengerjakan")
-    
-# Jika tombol diklik
+
+# Validasi setelah tombol diklik
 if submit_button:
-    st.success(f"Halo {nama} , selamat mengerjakan materi {materi}!")
-    # Simpan data identitas siswa ke session (opsional)
-    st.session_state["nama"] = nama
-    st.session_state["materi"] = materi
+    if nama.strip() == "" or materi == "":
+        st.error("❌ Silakan isi nama lengkap dan pilih materi terlebih dahulu!")
+    else:
+        st.success(f"Halo {nama}, selamat mengerjakan materi {materi}!")
+        st.session_state["nama"] = nama
+        st.session_state["materi"] = materi
