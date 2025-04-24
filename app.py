@@ -25,7 +25,8 @@ if st.session_state["halaman"] == "identitas":
         st.session_state.nama = st.text_input("Nama Lengkap", key="nama")
         st.session_state.materi = st.selectbox("Materi yang akan dikerjakan", ["", "Pecahan", "Pola Bilangan", "KPK dan FPB", "Luas dan Volume", "Bangun Datar"], key="materi")
 
-        submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal)
+        submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal):
+        pass
 
     # Jika tombol diklik
     if submit_button:
