@@ -28,14 +28,6 @@ if st.session_state["halaman"] == "identitas":
       if  submit_button = st.form_submit_button("Mulai Mengerjakan", on_click=mulai_soal):
         pass
 
-    # Jika tombol diklik
-    if submit_button:
-        if st.session_state.nama and st.session_state.materi:
-            st.session_state["halaman"] = "soal"
-            st.success(f"Halo {st.session_state.nama}, selamat mengerjakan materi {st.session_state.materi}!")
-        else:
-            st.warning("Harap lengkapi semua data sebelum melanjutkan!")
-
 # Halaman soal sesuai materi (halaman kedua)
 elif st.session_state["halaman"] == "soal":
     st.title(f"Materi: {st.session_state.materi}")
