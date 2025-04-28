@@ -16,36 +16,36 @@ if "skor" not in st.session_state:
 # ===== Data Soal Berdasarkan Level =====
 soal_bank = {
     "Pecahan": {
-        1: ("Sederhanakan: 6/8", "3/4", "Ingat, kita bisa bagi angka atas dan bawah dengan angka yang sama, coba bagi 6 dan 8 dengan 2."),
-        2: ("Sederhanakan: 10/15", "2/3", "Coba bagi 10 dan 15 dengan angka 5, yuk!"),
-        3: ("Sederhanakan: 14/21", "2/3", "Coba bagi 14 dan 21 dengan angka 7, dan lihat hasilnya!"),
+        1: ("Sederhanakan: 6/8", "3/4", "Hmm, kita bisa bikin angka ini lebih kecil! Coba bagi 6 dan 8 dengan angka yang sama, misalnya 2."),
+        2: ("Sederhanakan: 10/15", "2/3", "Coba bagi 10 dan 15 dengan angka 5, pasti ketemu jawabannya!"),
+        3: ("Sederhanakan: 14/21", "2/3", "Ada angka yang bisa kita bagi, coba bagi 14 dan 21 dengan angka 7!"),
     },
     "Pola Bilangan": {
-        1: ("Angka ke-5 dari pola: 2, 4, 6, ...", "10", "Perhatikan pola bertambah 2, jadi angka ke-5 adalah 2 + 4 = 10."),
-        2: ("Angka ke-6 dari pola: 5, 10, 15, ...", "30", "Setiap angka bertambah 5, jadi 5 + 5x5 = 30!"),
-        3: ("Angka ke-7 dari pola: 1, 3, 6, 10, ...", "28", "Coba hitung pola bertambahnya. Angka ke-7 ada di ujung!"),
+        1: ("Angka ke-5 dari pola: 2, 4, 6, ...", "10", "Pola ini bertambah 2 setiap langkah. Coba tambahkan angka 2, 4, 6, 8, dan 10!"),
+        2: ("Angka ke-6 dari pola: 5, 10, 15, ...", "30", "Setiap angka bertambah 5, jadi angka ke-6 adalah 30!"),
+        3: ("Angka ke-7 dari pola: 1, 3, 6, 10, ...", "28", "Pola bertambah dengan angka yang terus berubah. Coba hitung lagi angka ke-7!"),
     },
     "KPK dan FPB": {
-        1: ("Tentukan KPK dari 6 dan 8", "24", "Coba temukan kelipatan terkecil dari 6 dan 8. Yang pertama muncul adalah 24!"),
-        2: ("Tentukan FPB dari 18 dan 24", "6", "Cari angka yang membagi 18 dan 24 tanpa sisa, itu FPB-nya!"),
-        3: ("Tentukan KPK dari 9 dan 12", "36", "Cari kelipatan dari 9 dan 12, dan yang pertama bertemu adalah 36."),
+        1: ("Tentukan KPK dari 6 dan 8", "24", "Coba cari angka yang pertama kali muncul sebagai kelipatan dari 6 dan 8!"),
+        2: ("Tentukan FPB dari 18 dan 24", "6", "Cari angka yang bisa membagi 18 dan 24 tanpa ada sisa. Apa itu?"),
+        3: ("Tentukan KPK dari 9 dan 12", "36", "Coba temukan kelipatan terkecil dari 9 dan 12. Bisa kamu temukan 36?"),
     },
     "Luas dan Volume": {
-        1: ("Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "15", "Luas = panjang × lebar = 5 × 3. Mudah kan?"),
-        2: ("Volume kubus dengan sisi 4 cm?", "64", "Volume = sisi³ = 4³. Coba hitung 4 x 4 x 4!"),
-        3: ("Luas segitiga dengan alas 6 cm dan tinggi 4 cm?", "12", "Luas = 1/2 × alas × tinggi, jadi 1/2 × 6 × 4!"),
+        1: ("Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "15", "Luas = panjang × lebar. Jadi 5 cm × 3 cm, gampang kan?"),
+        2: ("Volume kubus dengan sisi 4 cm?", "64", "Volume = sisi × sisi × sisi. Jadi 4 cm × 4 cm × 4 cm = 64!"),
+        3: ("Luas segitiga dengan alas 6 cm dan tinggi 4 cm?", "12", "Luas segitiga = 1/2 × alas × tinggi. Coba hitung 1/2 × 6 cm × 4 cm!"),
     },
     "Bangun Datar": {
-        1: ("Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "12", "Keliling = jumlah sisi. 3 + 4 + 5 = 12 cm!"),
-        2: ("Keliling persegi dengan sisi 7 cm?", "28", "Keliling = 4 × sisi. 4 × 7 = 28 cm!"),
-        3: ("Keliling lingkaran dengan jari-jari 7 cm (pakai pi=22/7)?", "44", "Keliling = 2 × π × r. Coba hitung pakai 22/7!"),
+        1: ("Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "12", "Keliling = jumlah sisi segitiga. 3 cm + 4 cm + 5 cm = 12 cm!"),
+        2: ("Keliling persegi dengan sisi 7 cm?", "28", "Keliling = 4 × sisi. Jadi 4 × 7 cm = 28 cm!"),
+        3: ("Keliling lingkaran dengan jari-jari 7 cm (pakai pi=22/7)?", "44", "Keliling = 2 × π × r. Pakai pi 22/7, hitung deh!"),
     }
 }
 
 # ===== Halaman IDENTITAS =====
 if st.session_state["halaman"] == "identitas":
     st.title("Selamat Datang di PathMath - Sistem Rekomendasi Soal Matematika")
-    st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang tepat!")
+    st.write("Ayo mulai perjalananmu dalam memahami matematika dengan soal yang seru!")
 
     with st.form("form_identitas"):
         nama = st.text_input("Nama Lengkap")
@@ -92,6 +92,6 @@ if st.session_state["halaman"] == "soal":
                 st.session_state["halaman"] = "identitas"  # Mengarahkan ke halaman identitas setelah selesai
         else:
             st.error("Jawaban salah. Pahlawan kita tersandung batu, tetapi masih ada harapan!")
-            # Penjelasan dengan Deep Learning
-            st.info(f"Petunjuk: {penjelasan}. Ingat, deep learning bisa membantu kita memahami pola dan memecahkan masalah dengan lebih baik!")
+            # Penjelasan yang lebih menyenangkan
+            st.info(f"Petunjuk: {penjelasan}. Ingat, matematika itu seperti permainan yang seru, yuk coba lagi!")
 
