@@ -12,33 +12,35 @@ if "nomor_soal" not in st.session_state:
     st.session_state["nomor_soal"] = 1
 if "skor" not in st.session_state:
     st.session_state["skor"] = 0
+if "game_selesai" not in st.session_state:
+    st.session_state["game_selesai"] = False
 
 # ===== Data Soal Berdasarkan Level =====
 soal_bank = {
     "Pecahan": {
-        1: ("Sederhanakan: 6/8", "3/4", "Pecahan disederhanakan dengan membagi pembilang dan penyebut dengan faktor yang sama. 6 dan 8 bisa dibagi dengan 2. 6/8 = 3/4."),
-        2: ("Sederhanakan: 10/15", "2/3", "Pecahan disederhanakan dengan mencari FPB dari pembilang dan penyebut. 10 dan 15 bisa dibagi dengan 5. 10/15 = 2/3."),
-        3: ("Sederhanakan: 14/21", "2/3", "14 dan 21 sama-sama bisa dibagi 7. 14/21 = 2/3.")
+        1: ("Sederhanakan: 6/8", "3/4", "Rumus: Bagi pembilang dan penyebut dengan bilangan yang sama."),
+        2: ("Sederhanakan: 10/15", "2/3", "Rumus: Bagi pembilang dan penyebut dengan bilangan yang sama."),
+        3: ("Sederhanakan: 14/21", "2/3", "Rumus: Bagi pembilang dan penyebut dengan bilangan yang sama.")
     },
     "Pola Bilangan": {
-        1: ("Angka ke-5 dari pola: 2, 4, 6, ...", "10", "Pola ini bertambah 2 setiap angka. Jadi angka ke-5 = 2 + 4(2) = 10."),
-        2: ("Angka ke-6 dari pola: 5, 10, 15, ...", "30", "Pola bertambah 5. Angka ke-6 adalah 5 + 5x5 = 30."),
-        3: ("Angka ke-7 dari pola: 1, 3, 6, 10, ...", "28", "Ini adalah pola segitiga (bilangan bertambah 1, 2, 3, ...). 1+2=3, 3+3=6, 6+4=10, 10+5=15, 15+6=21, 21+7=28.")
+        1: ("Angka ke-5 dari pola: 2, 4, 6, ...", "10", "Rumus: Angka pertama + (selisih × nomor ke-5)."),
+        2: ("Angka ke-6 dari pola: 5, 10, 15, ...", "30", "Rumus: Angka pertama + (selisih × nomor ke-6)."),
+        3: ("Angka ke-7 dari pola: 1, 3, 6, 10, ...", "28", "Rumus: Penambahan berturut berdasarkan pola sebelumnya.")
     },
     "KPK dan FPB": {
-        1: ("Tentukan KPK dari 6 dan 8", "24", "KPK adalah kelipatan persekutuan terkecil dari dua bilangan. Kelipatan 6: 6,12,18,24... Kelipatan 8: 8,16,24... Maka KPK = 24."),
-        2: ("Tentukan FPB dari 18 dan 24", "6", "FPB adalah faktor persekutuan terbesar. Faktor 18: 1,2,3,6,9,18. Faktor 24: 1,2,3,4,6,8,12,24. Maka FPB = 6."),
-        3: ("Tentukan KPK dari 9 dan 12", "36", "Kelipatan 9: 9,18,27,36... Kelipatan 12: 12,24,36... Maka KPK = 36.")
+        1: ("Tentukan KPK dari 6 dan 8", "24", "Rumus: Cari kelipatan bersama yang terkecil."),
+        2: ("Tentukan FPB dari 18 dan 24", "6", "Rumus: Cari faktor bersama yang terbesar."),
+        3: ("Tentukan KPK dari 9 dan 12", "36", "Rumus: Cari kelipatan bersama yang terkecil.")
     },
     "Luas dan Volume": {
-        1: ("Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "15", "Rumus luas persegi panjang adalah panjang × lebar. Jadi 5 × 3 = 15 cm²."),
-        2: ("Volume kubus dengan sisi 4 cm?", "64", "Rumus volume kubus adalah sisi³. 4³ = 64 cm³."),
-        3: ("Luas segitiga dengan alas 6 cm dan tinggi 4 cm?", "12", "Rumus luas segitiga adalah 1/2 × alas × tinggi = 1/2 × 6 × 4 = 12 cm².")
+        1: ("Luas persegi panjang dengan panjang 5 cm dan lebar 3 cm?", "15", "Rumus: Panjang × Lebar."),
+        2: ("Volume kubus dengan sisi 4 cm?", "64", "Rumus: Sisi³."),
+        3: ("Luas segitiga dengan alas 6 cm dan tinggi 4 cm?", "12", "Rumus: 1/2 × Alas × Tinggi.")
     },
     "Bangun Datar": {
-        1: ("Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "12", "Rumus keliling segitiga adalah jumlah ketiga sisinya: 3 + 4 + 5 = 12 cm."),
-        2: ("Keliling persegi dengan sisi 7 cm?", "28", "Rumus keliling persegi adalah 4 × sisi = 4 × 7 = 28 cm."),
-        3: ("Keliling lingkaran dengan jari-jari 7 cm (pakai pi=22/7)?", "44", "Rumus keliling lingkaran = 2 × π × r = 2 × 22/7 × 7 = 44 cm.")
+        1: ("Keliling segitiga dengan sisi 3 cm, 4 cm, dan 5 cm?", "12", "Rumus: Jumlahkan semua sisi."),
+        2: ("Keliling persegi dengan sisi 7 cm?", "28", "Rumus: 4 × Sisi."),
+        3: ("Keliling lingkaran dengan jari-jari 7 cm (pakai pi=22/7)?", "44", "Rumus: 2 × π × r.")
     }
 }
 
@@ -77,19 +79,22 @@ if st.session_state["halaman"] == "soal":
 
     if st.button("Kirim Jawaban"):
         if jawaban_user.strip() == jawaban_benar:
-            st.success("Jawaban benar! Kamu naik ke level berikutnya.")
-            st.session_state["level"] = min(3, level + 1)
+            st.success("Jawaban benar!")
+            if level == 3:
+                st.session_state["game_selesai"] = True
+            else:
+                st.session_state["level"] = min(3, level + 1)
         else:
-            st.error("Jawaban salah. Kamu tetap di level ini.")
-            st.info(f"Penjelasan: {penjelasan}")
+            st.error("Jawaban salah.")
+            st.info(f"Petunjuk: {penjelasan}")
 
-        if level == 3:
-            st.balloons()
+        if st.session_state["game_selesai"]:
             st.success("Selamat, kamu sudah menyelesaikan semua level!")
             if st.button("Ulangi dari awal"):
                 st.session_state["halaman"] = "identitas"
                 st.session_state["level"] = 1
                 st.session_state["nomor_soal"] = 1
+                st.session_state["game_selesai"] = False
         else:
             if st.button("Lanjut ke soal berikutnya"):
                 st.rerun()
