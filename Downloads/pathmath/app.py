@@ -82,6 +82,7 @@ if st.session_state["halaman"] == "soal":
             st.success("Jawaban benar!")
             if level == 3:
                 st.session_state["game_selesai"] = True
+                st.session_state["halaman"] = "identitas"  # Mengarahkan ke halaman identitas setelah selesai
             else:
                 st.session_state["level"] = min(3, level + 1)
         else:
@@ -90,7 +91,7 @@ if st.session_state["halaman"] == "soal":
 
         if st.session_state["game_selesai"]:
             st.success("Selamat, kamu sudah menyelesaikan semua level!")
-            if st.button("Ulangi dari awal"):
+            if st.button("Kembali ke halaman identitas"):
                 st.session_state["halaman"] = "identitas"
                 st.session_state["level"] = 1
                 st.session_state["nomor_soal"] = 1
