@@ -14,6 +14,8 @@ if "skor" not in st.session_state:
     st.session_state["skor"] = 0
 if "game_selesai" not in st.session_state:
     st.session_state["game_selesai"] = False
+if "nama" not in st.session_state:
+    st.session_state["nama"] = ""
 
 # ===== Data Soal Gaya Anak SD =====
 soal_bank = {
@@ -45,7 +47,7 @@ soal_bank = {
 }
 
 # ===== Halaman IDENTITAS =====
-if st.session_state["halaman"] == "identitas":
+if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
     st.title("🎮 Selamat Datang di PathMath - Petualangan Soal Matematika!")
     st.write("Ayo mulai perjalanan serumu dalam dunia angka dan bentuk!")
 
@@ -76,14 +78,14 @@ if st.session_state["halaman"] == "soal":
     st.subheader(f"🎯 Soal Level {level}")
     st.write(soal)
 
-    jawaban_user = st.text_input("Jawabanmu apa nih?", key=f"jawaban_{level}")
+    jawaban_user = st.text_input("Jawabanmu apa nih?", key=f"jawaban_{materi}_{level}")
 
     if st.button("🚀 Kirim Jawaban"):
         if jawaban_user.strip() == jawaban_benar:
             st.success("🎉 Keren! Jawabanmu benar!")
             if level == 3:
                 st.session_state["game_selesai"] = True
-                st.session_state["halaman"] = "identitas"
+                st.session_state["halaman"] = "selesai"
             else:
                 st.session_state["level"] = min(3, level + 1)
                 st.rerun()
@@ -91,13 +93,13 @@ if st.session_state["halaman"] == "soal":
             st.error("😅 Wah, masih belum tepat nih.")
             st.info(f"🧩 Petunjuk: {penjelasan}")
 
-        if st.session_state["game_selesai"]:
-            st.success("🏆 Selamat! Kamu sudah menyelesaikan semua level petualangan!")
-            if st.button("🔄 Kembali ke Halaman Awal"):
-                st.session_state["halaman"] = "identitas"
-                st.session_state["level"] = 1
-                st.session_state["nomor_soal"] = 1
-                st.session_state["game_selesai"] = False
-        else:
-            if st.button("➡️ Lanjut ke Level Berikutnya"):
-                st.rerun()
+# ===== Halaman SELESAI =====
+if st.session_state["halaman"] == "selesai" and st.session_state["game_selesai"]:
+    st.success("🏆 Selamat! Kamu sudah menyelesaikan semua level petualangan!")
+    if st.button("🔄 Kembali ke Halaman Awal"):
+        st.session_state["halaman"] = "identitas"
+        st.session_state["level"] = 1
+        st.session_state["nomor_soal"] = 1
+        st.session_state["game_selesai"] = False
+        st.session_state["nama"] = ""
+        st.rerun()
