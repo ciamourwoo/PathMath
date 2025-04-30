@@ -86,6 +86,7 @@ if st.session_state["halaman"] == "soal":
                 st.session_state["halaman"] = "identitas"
             else:
                 st.session_state["level"] = min(3, level + 1)
+                st.rerun()
         else:
             st.error("😅 Wah, masih belum tepat nih.")
             st.info(f"🧩 Petunjuk: {penjelasan}")
