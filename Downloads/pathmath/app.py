@@ -59,6 +59,7 @@ if st.session_state["halaman"] == "identitas":
         if nama.strip() != "" and materi != "":
             st.session_state["nama"] = nama
             st.session_state["materi"] = materi
+            st.session_state["level"] = 1  # Reset level ke 1 saat memilih materi
             st.session_state["halaman"] = "soal"
         else:
             st.warning("Yuk lengkapi nama dan pilih dunia petualanganmu dulu!")
