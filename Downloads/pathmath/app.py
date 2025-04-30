@@ -20,29 +20,29 @@ if "nama" not in st.session_state:
 # ===== Data Soal Gaya Anak SD =====
 soal_bank = {
     "Pecahan": {
-        1: ("Ayo bantu Kak Rina menyederhanakan pecahan 6/8 supaya lebih kecil tapi nilainya tetap sama!", "3/4", "Gunakan jurus 'bagi sama'! 6 dan 8 bisa dibagi dengan angka yang sama, misalnya 2. Yuk dicoba!"),
-        2: ("Monster angka mengacak-acak pecahan 20/25! Cepat sederhanakan sebelum waktunya habis!", "4/5", "Coba cari angka yang bisa membagi 20 dan 25. Misalnya 5. Gunakan jurus 'bagi bareng' yuk!"),
-        3: ("Di kebun Kak Udin, 6 dari 8 bagian ditanami sayur. Tapi 4 bagian mau ditanami bunga. Berapa bagian yang masih untuk sayur? Bantu Kak Udin, yuk!", "2/8", "Kurangi dulu bagian sayur dikurangi bunga: 6 - 4. Kalau hasilnya bisa disederhanakan, jangan lupa sederhanakan ya!")
+        1: ("Ayo sederhanakan pecahan 6/8!", "3/4", "Gunakan jurus 'bagi sama'! 6 dan 8 bisa dibagi dengan angka yang sama, misalnya 2. Yuk dicoba!"),
+        2: ("Yuk, hitung: 1/2 + 1/4!", "3/4", "Eits, penyebutnya beda. Kita harus samakan dulu!. Ubah 1/2 jadi 2/4 biar sama dengan penyebut 4. Sekarang 2/4 + 1/4 = ?"),
+        3: ("Rina punya 3/4 liter sirup, Andi punya 2/3 liter. Siapa lebih banyak? Rina atau Andi?", "Rina", "Hmm... penyebutnya beda, yuk samakan dulu! Ubah ke penyebut 12. 3/4 = 9/12, 2/3 = 8/12 → Siapa yang lebih banyak?")
     },
     "Pola Bilangan": {
-        1: ("Lihat pola ini ya: 2, 4, 6, ... Nah, angka ke-5 berapa ya?", "10", "Pola ini naik 2 terus. Coba hitung ya: 2, 4, 6, 8, ... Tambah 2 terus sampai angka ke-5!"),
-        2: ("Pola ini seru! 5, 10, 15, ... Nah, angka ke-6 kira-kira berapa?", "30", "Tambah terus dengan angka 5. Hitung bareng yuk: 5, 10, 15, 20, 25... terus sampai angka ke-6!"),
+        1: ("2, 4, 6, ... Angka ke-5 berapa ya?", "10", "Pola ini naik 2 terus. Coba hitung ya: 2, 4, 6, 8, ... Tambah 2 terus sampai angka ke-5!"),
+        2: ("Coba lihat pola ini ya! 5, 10, 15, ... Nah, angka ke-6 kira-kira berapa?", "30", "Tambah terus dengan angka 5. Hitung bareng yuk: 5, 10, 15, 20, 25... terus sampai angka ke-6!"),
         3: ("Bayangkan kamu sedang naik tangga: 1, 3, 6, 10... Berapa ya anak tangga ke-7?", "28", "Tiap langkah kamu tambahkan angka yang lebih besar dari sebelumnya: 1+2, lalu +3, +4... Lanjutkan sampai ke langkah ke-7 ya!")
     },
     "KPK dan FPB": {
-        1: ("Kak Nina mau beli pensil. Pensil 6 dan 8 datang tiap beberapa menit. Kapan datang bersamaan? Cari KPK-nya yuk!", "24", "Coba tulis kelipatan 6: 6, 12, 18, ... dan kelipatan 8: 8, 16, 24, ... lalu cari yang sama dan paling kecil ya!"),
+        1: ("Berapa ya KPK dari 6 dan 8?", "24", "Coba tulis kelipatan 6: 6, 12, 18, ... dan kelipatan 8: 8, 16, 24, ... lalu cari yang sama dan paling kecil ya!"),
         2: ("Kak Riko punya 18 kelereng dan Kak Budi punya 24. Berapa kelereng terbanyak yang bisa dibagi rata ke teman-teman?", "6", "Cari angka yang bisa membagi 18 dan 24, misalnya: 6, 3... Nah, yang paling besar itu jawabannya!"),
-        3: ("Kapan ya 9 dan 12 akan bersamaan lagi di lomba lari kelipatan? Cari KPK-nya yuk!", "36", "Tulis kelipatan 9: 9, 18, 27, ... dan kelipatan 12: 12, 24, 36, ... lalu temukan yang sama dan paling kecil.")
+        3: ("Ali berlari mengelilingi lapangan. Ia berlari setiap 15 menit, sementara Budi setiap 20 menit. Setelah berapa menit mereka akan berlari bersama di titik awal?", "60", "Cari KPK dari 15 dan 20. Cari angka yang sama dan paling kecil ya!")
     },
     "Luas dan Volume": {
-        1: ("Ada karpet persegi panjang, panjangnya 5 cm dan lebarnya 3 cm. Berapa luasnya ya?", "15", "Gunakan rumus: panjang × lebar. Yuk masukkan angkanya dan hitung bareng!"),
-        2: ("Sebuah kubus punya sisi 4 cm. Nah, berapa ya volumenya?", "64", "Pakai rumus sisi × sisi × sisi. Coba hitung: sisi pertama × sisi kedua × sisi ketiga ya!"),
-        3: ("Sebuah segitiga punya alas 6 cm dan tinggi 4 cm. Yuk cari luasnya!", "12", "Gunakan jurus segitiga: 1/2 × alas × tinggi. Masukkan angka-angkanya yuk!")
+        1: ("Ada persegi panjang yang panjangnya 5 cm dan lebarnya 3 cm. Luasnya ... cm2", "15", "Gunakan rumus: panjang × lebar. Yuk masukkan angkanya dan hitung bareng!"),
+        2: ("Sebuah kubus punya sisi 4 cm. Nah, berapa ya volumenya? Volumenya ... cm3", "64", "Pakai rumus sisi × sisi × sisi. Coba hitung: sisi pertama × sisi kedua × sisi ketiga ya!"),
+        3: ("Sebuah segitiga punya alas 6 cm dan tinggi 4 cm. Luasnya ... cm2", "12", "Gunakan jurus segitiga: 1/2 × alas × tinggi. Masukkan angka-angkanya yuk!")
     },
     "Bangun Datar": {
-        1: ("Sebuah segitiga punya sisi 3 cm, 4 cm, dan 5 cm. Berapa kelilingnya?", "12", "Keliling itu jumlah semua sisi. Tambahkan satu per satu ya: sisi 1 + sisi 2 + sisi 3!"),
-        2: ("Sebuah persegi punya sisi 7 cm. Yuk cari kelilingnya!", "28", "Keliling persegi itu 4 × sisi. Masukkan angkanya yuk!"),
-        3: ("Sebuah lingkaran punya jari-jari 7 cm. Berapa kelilingnya? (pakai π = 22/7)", "44", "Gunakan rumus: 2 × π × jari-jari. Jadi 2 × 22/7 × 7, yuk hitung bareng!")
+        1: ("Keliling dari segitiga yang sisinya 3 cm, 4 cm, dan 5 cm adalah ... cm", "12", "Keliling itu jumlah semua sisi. Tambahkan satu per satu ya: sisi 1 + sisi 2 + sisi 3!"),
+        2: ("Sebuah persegi punya sisi 7 cm. Yuk cari kelilingnya! Kelilingnya adalah ... cm", "28", "Keliling persegi itu 4 × sisi. Masukkan angkanya yuk!"),
+        3: ("Sebuah lingkaran punya jari-jari 7 cm. Kelilingnya adalah ... cm. (pakai π = 22/7)", "44", "Gunakan rumus: 2 × π × jari-jari. Jadi 2 × 22/7 × 7, yuk hitung bareng!")
     }
 }
 
