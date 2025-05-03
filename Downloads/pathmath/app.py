@@ -22,7 +22,7 @@ soal_bank = {
     "Pecahan": {
         1: ("Ayo sederhanakan pecahan 6/8!", "3/4", "Gunakan jurus 'bagi sama'! 6 dan 8 bisa dibagi dengan angka yang sama, misalnya 2. Yuk dicoba!"),
         2: ("Yuk, hitung: 1/2 + 1/4!", "3/4", "Eits, penyebutnya beda. Kita harus samakan dulu!. Ubah 1/2 jadi 2/4 biar sama dengan penyebut 4. Sekarang 2/4 + 1/4 = ?"),
-        3: ("Rina punya 3/4 liter sirup, Andi punya 2/3 liter. Siapa lebih banyak? Rina atau Andi?", "Rina" and "rina", "Hmm... penyebutnya beda, yuk samakan dulu! Ubah ke penyebut 12. 3/4 = 9/12, 2/3 = 8/12 → Siapa yang lebih banyak?")
+        3: ("Rina punya 3/4 liter sirup, Andi punya 2/3 liter. Siapa lebih banyak? Rina atau Andi?", "Rina", "Hmm... penyebutnya beda, yuk samakan dulu! Ubah ke penyebut 12. 3/4 = 9/12, 2/3 = 8/12 → Siapa yang lebih banyak?")
     },
     "Pola Bilangan": {
         1: ("2, 4, 6, ... Angka ke-5 berapa ya?", "10", "Pola ini naik 2 terus. Coba hitung ya: 2, 4, 6, 8, ... Tambah 2 terus sampai angka ke-5!"),
@@ -81,7 +81,7 @@ if st.session_state["halaman"] == "soal":
     jawaban_user = st.text_input("Jawabanmu apa nih?", key=f"jawaban_{materi}_{level}")
 
     if st.button("🚀 Kirim Jawaban"):
-        if jawaban_user.strip() == jawaban_benar:
+        if jawaban_user.strip().lower() == jawaban_benar.lower():
             st.success("🎉 Keren! Jawabanmu benar!")
             if level == 3:
                 st.session_state["game_selesai"] = True
