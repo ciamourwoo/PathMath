@@ -48,8 +48,7 @@ soal_bank = {
 
 # ===== Halaman IDENTITAS =====
 if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
-    st.image("https://i.ibb.co/PYzzK5J/header-pathmath.png", use_column_width=True)
-    st.image("https://i.ibb.co/2n2bXp6/karakter-anak.png", width=200)
+    st.image("C:\Users\user\Downloads/PATHMATH.png", use_column_width=True)
     st.title("🎮 Selamat Datang di PathMath - Petualangan Soal Matematika!")
     st.write("Ayo mulai perjalanan serumu dalam dunia angka dan bentuk!")
 
