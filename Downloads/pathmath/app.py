@@ -48,6 +48,7 @@ soal_bank = {
 
 # ===== Halaman IDENTITAS =====
 if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
+    st.image("https://id.pinterest.com/pin/154600199682904057/", width=200)
     st.title("🎮 Selamat Datang di PathMath - Petualangan Soal Matematika!")
     st.write("Ayo mulai perjalanan serumu dalam dunia angka dan bentuk!")
 
