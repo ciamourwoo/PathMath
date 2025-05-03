@@ -48,7 +48,9 @@ soal_bank = {
 
 # ===== Halaman IDENTITAS =====
 if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
-    st.image("images/images/PATHMATH.png", use_container_width=True) 
+    st.markdown(
+    "<img src='images/PATHMATH.png' width='300'>", unsafe_allow_html=True
+)
     st.title("🎮 Selamat Datang di PathMath - Petualangan Soal Matematika!")
     st.write("Ayo mulai perjalanan serumu dalam dunia angka dan bentuk!")
 
