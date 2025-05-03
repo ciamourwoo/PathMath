@@ -22,7 +22,7 @@ soal_bank = {
     "Pecahan": {
         1: ("Ayo sederhanakan pecahan 6/8!", "3/4", "Gunakan jurus 'bagi sama'! 6 dan 8 bisa dibagi dengan angka yang sama, misalnya 2. Yuk dicoba!"),
         2: ("Yuk, hitung: 1/2 + 1/4!", "3/4", "Eits, penyebutnya beda. Kita harus samakan dulu!. Ubah 1/2 jadi 2/4 biar sama dengan penyebut 4. Sekarang 2/4 + 1/4 = ?"),
-        3: ("Rina punya 3/4 liter sirup, Andi punya 2/3 liter. Siapa lebih banyak? Rina atau Andi?", "Rina", "Hmm... penyebutnya beda, yuk samakan dulu! Ubah ke penyebut 12. 3/4 = 9/12, 2/3 = 8/12 → Siapa yang lebih banyak?")
+        3: ("Rina punya 3/4 liter sirup, Andi punya 2/3 liter. Siapa lebih banyak? Rina atau Andi?", "rina", "Hmm... penyebutnya beda, yuk samakan dulu! Ubah ke penyebut 12. 3/4 = 9/12, 2/3 = 8/12 → Siapa yang lebih banyak?")
     },
     "Pola Bilangan": {
         1: ("2, 4, 6, ... Angka ke-5 berapa ya?", "10", "Pola ini naik 2 terus. Coba hitung ya: 2, 4, 6, 8, ... Tambah 2 terus sampai angka ke-5!"),
@@ -48,6 +48,8 @@ soal_bank = {
 
 # ===== Halaman IDENTITAS =====
 if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
+    st.image("https://i.ibb.co/PYzzK5J/header-pathmath.png", use_column_width=True)
+    st.image("https://i.ibb.co/2n2bXp6/karakter-anak.png", width=200)
     st.title("🎮 Selamat Datang di PathMath - Petualangan Soal Matematika!")
     st.write("Ayo mulai perjalanan serumu dalam dunia angka dan bentuk!")
 
@@ -61,7 +63,7 @@ if st.session_state["halaman"] == "identitas" and not st.session_state["nama"]:
         if nama.strip() != "" and materi != "":
             st.session_state["nama"] = nama
             st.session_state["materi"] = materi
-            st.session_state["level"] = 1  # Reset level ke 1 saat memilih materi
+            st.session_state["level"] = 1
             st.session_state["halaman"] = "soal"
         else:
             st.warning("Yuk lengkapi nama dan pilih dunia petualanganmu dulu!")
@@ -78,11 +80,15 @@ if st.session_state["halaman"] == "soal":
     st.subheader(f"🎯 Soal Level {level}")
     st.write(soal)
 
+    # Progress bar
+    st.progress((level - 1) / 3)
+
     jawaban_user = st.text_input("Jawabanmu apa nih?", key=f"jawaban_{materi}_{level}")
 
     if st.button("🚀 Kirim Jawaban"):
-        if jawaban_user.strip().lower() == jawaban_benar.lower():
+        if jawaban_user.strip().lower() == jawaban_benar.strip().lower():
             st.success("🎉 Keren! Jawabanmu benar!")
+            st.image("https://i.ibb.co/tKPYZfY/benar-bintang.gif", width=150)
             if level == 3:
                 st.session_state["game_selesai"] = True
                 st.session_state["halaman"] = "selesai"
@@ -91,11 +97,15 @@ if st.session_state["halaman"] == "soal":
                 st.rerun()
         else:
             st.error("😅 Wah, masih belum tepat nih.")
+            st.image("https://i.ibb.co/ZX0zVdx/coba-lagi.gif", width=150)
             st.info(f"🧩 Petunjuk: {penjelasan}")
 
 # ===== Halaman SELESAI =====
 if st.session_state["halaman"] == "selesai" and st.session_state["game_selesai"]:
+    st.balloons()
     st.success("🏆 Selamat! Kamu sudah menyelesaikan semua level petualangan!")
+    st.image("https://i.ibb.co/vxN0Z1M/selamat-anak.png", width=200)
+
     if st.button("🔄 Kembali ke Halaman Awal"):
         st.session_state["halaman"] = "identitas"
         st.session_state["level"] = 1
